@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -12,10 +12,11 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, undefined, composeWithDevTools());
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <CounterPage />
         </Provider>
-    </React.StrictMode>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
