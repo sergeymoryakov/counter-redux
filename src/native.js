@@ -1,6 +1,4 @@
 import "./styles.css";
-import { createStore } from "./createStore";
-import { rootReducer } from "./redux/rootReducer";
 
 const counter = document.getElementById("counter");
 const addBtnNode = document.getElementById("add");
@@ -8,29 +6,31 @@ const subBtnNode = document.getElementById("sub");
 const asyncBtnNode = document.getElementById("async");
 const themeBtnNode = document.getElementById("theme");
 
-const store = createStore(rootReducer, 0);
+let state = 0;
+
+function render() {
+    counter.textContent = state.toString();
+}
 
 addBtnNode.addEventListener("click", () => {
-    store.dispatch({ type: "INCREMENT" });
+    state++;
+    render();
 });
 
 subBtnNode.addEventListener("click", () => {
-    store.dispatch({ type: "DECREMENT" });
+    state--;
+    render();
 });
 
 asyncBtnNode.addEventListener("click", () => {
     setTimeout(() => {
-        store.dispatch({ type: "INCREMENT" });
+        state++;
+        render();
     }, 2000);
 });
 
-store.subscribe(() => {
-    const state = store.getState();
-    counter.textContent = state;
-});
-
-store.dispatch({ type: "INIT_APPLICATION" });
-
 themeBtnNode.addEventListener("click", () => {
-    // document.body.classList.toggle("dark");
+    document.body.classList.toggle("dark");
 });
+
+render();
